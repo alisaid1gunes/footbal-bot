@@ -61,26 +61,40 @@ async function run() {
   await close?.click();
 
   await page.waitForSelector(".filters__tab", {
-    timeout: 1000,
+    timeout: 3000,
   });
 
   const items = await page.$$(".filters__tab");
 
-  console.log(
-    await items[0].evaluate((node) => {
-      node.innerHTML; // 0.item innerhtml
-    })
-  );
-
   await items[4].click(); // item 4 click. item 4 is scheduled matches tab
 
-  await page.waitForSelector(
-    ".event__match event__match--scheduled event__match--last event__match--twoLine"
-  );
+  await page.waitForSelector(".event__participant--home", {
+    timeout: 3000,
+  });
 
-  const matches = await page.$$(".event__match event__match--twoLine");
+  const matchesHome = await page.$$(".event__participant--home ");
+  const matchesAway = await page.$$(".event__participant--away ");
+  const mathesTime = await page.$$(".event__time ");
+  for (let i = 0; i < matchesHome.length; i++) {
+    const homeElement = matchesHome[i];
+    const textHome = await homeElement.evaluate((e) => e.textContent);
+    const textHomeArray = textHome?.split("\n");
 
-  console.log(matches.length);
+    const awayElement = matchesAway[i];
+    const textAway = await awayElement.evaluate((e) => e.textContent);
+    const textAwayArray = textAway?.split("\n");
+
+    const timeElement = mathesTime[i];
+    const textTime = await timeElement.evaluate((e) => e.textContent);
+    const textTimeArray = textTime?.split("\n");
+
+    for (let j = 0; j < textHomeArray!.length; j++) {
+      console.log({
+        home: textHomeArray![j],
+        away: textAwayArray![j],
+        time: textTimeArray![j],
+      });
+    }
+  }
 }
-
 run();
