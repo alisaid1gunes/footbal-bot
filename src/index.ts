@@ -2,7 +2,7 @@ import { MatchService } from "./matches/match.service";
 
 async function run() {
   const matchService = new MatchService();
-  const matches = await matchService.getMatches(["SPAIN: LaLiga"]);
+  const matches = await matchService.getMatches([]);
   //SPAIN: LaLiga
   console.log(matches);
 }
