@@ -35,6 +35,7 @@ export class DetailsHandler {
       goals,
     };
   }
+
   public async getDetails(leagues: any[], matches: Match[], browser: any) {
     for (let i = 0; i < matches.length; i++) {
       const match = matches[i];
@@ -122,54 +123,62 @@ export class DetailsHandler {
             awayTeamGoals: goals[1],
           });
         }
-
-        await pageH2.waitForSelector(
-          'a[class="tabs__tab"][href="#/odds-comparison"]'
-        );
-
-        await pageH2.evaluate(() => {
-          const el = document.querySelector(
-            'a[class="tabs__tab"][href="#/odds-comparison"]'
-          ) as HTMLElement;
-          el.click();
-        });
-        //href="#/odds-comparison/over-under"
-
-        await pageH2.waitForSelector(
-          'a[class="tabs__tab"][href="#/odds-comparison/over-under"]'
-        );
-
-        await pageH2.evaluate(() => {
-          const el = document.querySelector(
-            'a[class="tabs__tab"][href="#/odds-comparison/over-under"]'
-          ) as HTMLElement;
-          el.click();
-        });
-        const tableRow = await pageH2.$$(".ui-table__row");
-        const rowEl = tableRow[0];
-
-        const total = await rowEl.$(".oddsCell__noOddsCell");
-        const totalText = await total?.evaluate(
-          (e: { textContent: any }) => e.textContent
-        );
-        const odds = await rowEl.$$(".oddsCell__odd");
-        const overText = await odds[0]?.evaluate(
-          (e: { textContent: any }) => e.textContent
-        );
-
-        const underText = await odds[1]?.evaluate(
-          (e: { textContent: any }) => e.textContent
-        );
         const odd = new Odd();
-        odd.total = totalText;
-        odd.over = overText;
-        odd.under = underText;
+        try {
+          await pageH2.waitForSelector(
+            'a[class="tabs__tab"][href="#/odds-comparison"]',
+            { timeout: 500 }
+          );
+
+          await pageH2.evaluate(() => {
+            const el = document.querySelector(
+              'a[class="tabs__tab"][href="#/odds-comparison"]'
+            ) as HTMLElement;
+            el.click();
+          });
+          //href="#/odds-comparison/over-under"
+
+          await pageH2.waitForSelector(
+            'a[class="tabs__tab"][href="#/odds-comparison/over-under"]',
+            { timeout: 500 }
+          );
+
+          await pageH2.evaluate(() => {
+            const el = document.querySelector(
+              'a[class="tabs__tab"][href="#/odds-comparison/over-under"]'
+            ) as HTMLElement;
+            el.click();
+          });
+          const tableRow = await pageH2.$$(".ui-table__row");
+          const rowEl = tableRow[0];
+
+          const total = await rowEl.$(".oddsCell__noOddsCell");
+          const totalText = await total?.evaluate(
+            (e: { textContent: any }) => e.textContent
+          );
+          const odds = await rowEl.$$(".oddsCell__odd");
+          const overText = await odds[0]?.evaluate(
+            (e: { textContent: any }) => e.textContent
+          );
+
+          const underText = await odds[1]?.evaluate(
+            (e: { textContent: any }) => e.textContent
+          );
+          odd.total = totalText;
+          odd.over = overText;
+          odd.under = underText;
+        } catch (e) {
+          console.log(e);
+        }
+
         detail.homeTeamLastMatches = lastHomeTeamMatches;
         detail.awayTeamLastMatches = lastAwayTeamMatches;
         detail.h2hLastMatches = lastH2HMatches;
         detail.odd = odd;
         match.detail = detail;
+        pageH2.close();
       }
+      matches[i] = match;
     }
   }
 }

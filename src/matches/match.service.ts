@@ -2,6 +2,7 @@ import { Match } from "./match.entity";
 import * as puppeteer from "puppeteer";
 import { SettingsHandler } from "./settings.handler";
 import { DetailsHandler } from "./details.handler";
+import { CalculatorHandler } from "./calculator.handler";
 
 export class MatchService {
   private page: any;
@@ -9,12 +10,15 @@ export class MatchService {
   private browser: any;
   private inEventHeaderList: any[] = [];
   private settingsHandler: SettingsHandler;
-  private detailsHandler = new DetailsHandler();
+  private detailsHandler: DetailsHandler;
+  private calculatorHandler: CalculatorHandler;
+
   constructor() {
     this.matches = [];
     this.inEventHeaderList = [];
     this.settingsHandler = new SettingsHandler();
     this.detailsHandler = new DetailsHandler();
+    this.calculatorHandler = new CalculatorHandler(this.matches);
   }
 
   public async getMatches(leagues: any[]) {
@@ -29,7 +33,8 @@ export class MatchService {
     await this.goToScheduled(mainPage);
     await this.getMainPageMatchesDivs(mainPage);
     await this.detailsHandler.getDetails(leagues, this.matches, this.browser);
-    return this.matches;
+
+    return await this.calculatorHandler.calculate();
   }
 
   public async openPage(URL: string, options: any, waitForFunction: boolean) {

@@ -7,4 +7,5 @@ export class Match {
   detail?: Detail;
   league?: string;
   pageId?: string;
+  totalPoint?: number;
 }
