@@ -2,11 +2,11 @@ import { Match } from "./match.entity";
 
 export class CalculatorHandler {
   private receivedMatches: Match[];
-  private filteredMaches: Match[];
+  private filteredMatches: Match[];
   private matches: Match[];
   constructor(matches: Match[]) {
     this.receivedMatches = matches;
-    this.filteredMaches = [];
+    this.filteredMatches = [];
     this.matches = [];
   }
 
@@ -17,16 +17,16 @@ export class CalculatorHandler {
       if (odd !== undefined) {
         const over = odd?.over;
         if (over !== undefined) {
-          if (over > 1) {
-            console.log("over 2.5");
-            this.filteredMaches.push(match);
+          if (over > 1.5) {
+            console.log("over 1.5");
+            this.filteredMatches.push(match);
           }
         }
       }
     }
-    if (this.filteredMaches.length > 0) {
-      for (let j = 0; j < this.filteredMaches.length; j++) {
-        const match = this.filteredMaches[j];
+    if (this.filteredMatches.length > 0) {
+      for (let j = 0; j < this.filteredMatches.length; j++) {
+        const match = this.filteredMatches[j];
         // @ts-ignore
         let homeTeamMatchTotalGoalScoring = 0;
         // @ts-ignore
@@ -101,9 +101,9 @@ export class CalculatorHandler {
           h2hMatchTotalGoalScoring,
         });
         match.totalPoint =
-          (Number(homeTeamMatchTotalGoalScoring) / 5) * 0.04 +
-          (Number(awayTeamMatchTotalGoalScoring) / 5) * 0.04 +
-          (Number(h2hMatchTotalGoalScoring) / 5) * 0.02;
+          (Number(homeTeamMatchTotalGoalScoring) / 5) * 0.4 +
+          (Number(awayTeamMatchTotalGoalScoring) / 5) * 0.4 +
+          (Number(h2hMatchTotalGoalScoring) / 5) * 0.2;
 
         this.matches.push(match);
 

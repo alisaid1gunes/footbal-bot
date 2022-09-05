@@ -50,7 +50,17 @@ export class DetailsHandler {
             waitUntil: "domcontentloaded",
           }
         );
+        const images = await pageH2.$$(".participant__image");
 
+        const homeTeamImage = await images[0].evaluate(
+          (e: { src: any }) => e.src
+        );
+
+        const awayTeamImage = await images[1].evaluate(
+          (e: { src: any }) => e.src
+        );
+        match.homeTeamImage = homeTeamImage;
+        match.awayTeamImage = awayTeamImage;
         const lastHomeTeamMatches: LastMatch[] = [];
         const lastAwayTeamMatches: LastMatch[] = [];
         const lastH2HMatches: LastMatch[] = [];
@@ -150,7 +160,19 @@ export class DetailsHandler {
             el.click();
           });
           const tableRow = await pageH2.$$(".ui-table__row");
-          const rowEl = tableRow[0];
+
+          let rowEl = null;
+          for (let i = 0; i < tableRow.length; i++) {
+            const row = tableRow[i];
+            const total = await row?.$(".oddsCell__noOddsCell");
+            const totalText = await total?.evaluate(
+              (e: { textContent: any }) => e.textContent
+            );
+            if (totalText === "2.5") {
+              rowEl = row;
+              break;
+            }
+          }
 
           const total = await rowEl.$(".oddsCell__noOddsCell");
           const totalText = await total?.evaluate(
