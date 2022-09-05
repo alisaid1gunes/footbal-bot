@@ -1,5 +1,8 @@
 import { MatchService } from "./matches/match.service";
 import * as cron from "node-cron";
+import { recordDB } from "./matches/match.client";
+import * as dotenv from "dotenv";
+dotenv.config();
 async function run() {
   const matchService = new MatchService();
   const matches = await matchService.getMatches(["ITALY: Serie A"]);
@@ -8,9 +11,14 @@ async function run() {
   for (let i = 0; i < 5; i++) {
     const match = matches[i];
     console.dir(match, { depth: null });
+    if (match !== undefined) {
+      {
+        await recordDB(match);
+      }
+    }
   }
 }
-
-cron.schedule("* * * * *", () => {
+cron.schedule("0 2 * * *", () => {
+  //Every day at 2am
   run();
 });

@@ -33,7 +33,7 @@ export class MatchService {
     await this.goToScheduled(mainPage);
     await this.getMainPageMatchesDivs(mainPage);
     await this.detailsHandler.getDetails(leagues, this.matches, this.browser);
-
+    await this.browser.close();
     return await this.calculatorHandler.calculate();
   }
 
