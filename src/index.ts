@@ -21,6 +21,6 @@ async function run() {
   }
 }
 cron.schedule("0 2 * * *", () => {
-  //Every day at 2am
+  //Every day at  2am
   run();
 });
