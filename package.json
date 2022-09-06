@@ -1,0 +1,33 @@
+{
+  "name": "footbal-bot",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "type": "commonjs",
+  "repository": "https://github.com/alisaid1gunes/footbal-bot.git",
+  "author": "alisaidgunes <alisaidgunes1@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.6.9",
+    "@types/axios": "^0.14.0",
+    "@types/cheerio": "^0.22.31",
+    "@types/node-cron": "^3.0.3",
+    "@types/puppeteer": "^5.4.6",
+    "axios": "^0.27.2",
+    "cheerio": "^1.0.0-rc.12",
+    "cross-fetch": "^3.1.5",
+    "dotenv": "^16.0.2",
+    "graphql": "^16.6.0",
+    "graphql-iso-date": "^3.6.1",
+    "moment": "^2.29.4",
+    "node-cron": "3.0.0",
+    "prettier": "^2.7.1",
+    "puppeteer": "^16.1.1",
+    "react": "^18.2.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.7.4"
+  }
+}
