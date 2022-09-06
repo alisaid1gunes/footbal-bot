@@ -50,6 +50,15 @@ export class DetailsHandler {
             waitUntil: "domcontentloaded",
           }
         );
+
+        const startTime = await pageH2.$(".duelParticipant__startTime");
+
+        const startTimeText = await startTime.evaluate(
+          (e: { textContent: any }) => e.textContent
+        );
+
+        const date = startTimeText?.split(" ");
+
         const images = await pageH2.$$(".participant__image");
 
         const homeTeamImage = await images[0].evaluate(
@@ -61,6 +70,30 @@ export class DetailsHandler {
         );
         match.homeTeamImage = homeTeamImage;
         match.awayTeamImage = awayTeamImage;
+
+        match.date = date[0];
+        if (match.date !== undefined && match.time !== undefined) {
+          const [month, day, year] = match.date?.split(".");
+          const [hours, minutes] = match.time?.split(":");
+          console.log("match.date", match.date + " " + match.time);
+
+          const dateStr =
+            day +
+            "-" +
+            month +
+            "-" +
+            year +
+            " " +
+            hours +
+            ":" +
+            minutes +
+            ":00" +
+            " GMT+0";
+          const date = new Date(dateStr);
+
+          console.log(date);
+          match.dateGMT = date;
+        }
         const lastHomeTeamMatches: LastMatch[] = [];
         const lastAwayTeamMatches: LastMatch[] = [];
         const lastH2HMatches: LastMatch[] = [];

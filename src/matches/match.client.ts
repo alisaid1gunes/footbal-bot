@@ -50,6 +50,8 @@ export const recordDB = async (match: Match) => {
           $teamSecond: String!
           $homeImage: String!
           $awayImage: String!
+          $productsId: ID!
+          $locationIds: [ID!]
         ) {
           createTeam(
             prediction: $prediction
@@ -60,20 +62,24 @@ export const recordDB = async (match: Match) => {
             teamSecond: $teamSecond
             homeImage: $homeImage
             awayImage: $awayImage
+            productsId: $productsId
+            locationIds: $locationIds
           ) {
             prediction
           }
         }
       `,
       variables: {
-        prediction: match.totalPoint?.toString(),
-        predictionEN: match.totalPoint?.toString(),
-        matchDate: new Date(),
+        prediction: match.totalPoint! > 2.5 ? "2.5 Üst" : "2.5 Alt",
+        predictionEN: match.totalPoint! > 2.5 ? "2.5 Over" : "2.5 Under",
+        matchDate: match.dateGMT,
         matchType: "Futbol",
         teamFirst: match.homeTeam,
         teamSecond: match.awayTeam,
         homeImage: match.homeTeamImage,
         awayImage: match.awayTeamImage,
+        productsId: "cjudvlen3j9mx0183kza55j5t",
+        locationIds: ["cjz3uqgbt5yge0165k2lz16oo"],
       },
     })
     .then((result) => console.log(result));

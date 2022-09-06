@@ -5,7 +5,9 @@ import * as dotenv from "dotenv";
 dotenv.config();
 async function run() {
   const matchService = new MatchService();
-  const matches = await matchService.getMatches(["ITALY: Serie A"]);
+  const matches = await matchService.getMatches([
+    "EUROPE: Champions League - Group Stage",
+  ]);
   //SPAIN: LaLiga
 
   for (let i = 0; i < 5; i++) {

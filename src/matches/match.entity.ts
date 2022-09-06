@@ -10,4 +10,6 @@ export class Match {
   league?: string;
   pageId?: string;
   totalPoint?: number;
+  date?: string;
+  dateGMT?: Date;
 }
