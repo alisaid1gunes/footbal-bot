@@ -14,6 +14,7 @@ export class SettingsHandler {
   }
 
   public async goToSettings(page: any) {
+    await new Promise(resolve => setTimeout(resolve, 18000));
     await page.waitForSelector(
       'div[class="contextMenu__row"][tabindex="0"][role="button"]'
     );
