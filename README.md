@@ -18,7 +18,7 @@ Install Football Bot with yarn
 ```bash
   yarn install
 ```
-And then create a .env file in the root directory and add the following variables
+And then create a .env file in the root directory and add the following variable
 
 ```bash
  TOKEN=your_endpoint_token
