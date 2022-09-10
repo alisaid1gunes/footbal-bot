@@ -14,7 +14,6 @@ export class SettingsHandler {
   }
 
   public async goToSettings(page: any) {
-    await new Promise(resolve => setTimeout(resolve, 18000));
     await page.waitForSelector(
       'div[class="contextMenu__row"][tabindex="0"][role="button"]'
     );
@@ -78,5 +77,7 @@ export class SettingsHandler {
 
     const close = await page.$('svg[class="close modal__closeButton"]');
     await close?.click(); //menu close button click
+    await new Promise(resolve => setTimeout(resolve, 18000));
+
   }
 }
