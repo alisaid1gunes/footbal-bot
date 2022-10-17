@@ -9,11 +9,15 @@ async function run() {
     "FRANCE: Ligue 1",
     "GERMANY: Bundesliga",
     "ITALY: Serie A",
-    "SPAIN: LaLiga"
+    "ENGLAND: Premier League",
+    "SPAIN: LaLiga",
+    "TURKEY: Super Lig",
+    "AUSTRALIA: A-League"
+  
   ]);
   //SPAIN: LaLiga
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 4; i++) {
     const match = matches[i];
     console.dir(match, { depth: null });
     if (match !== undefined) {

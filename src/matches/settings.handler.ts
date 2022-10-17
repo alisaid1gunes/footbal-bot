@@ -77,7 +77,7 @@ export class SettingsHandler {
 
     const close = await page.$('svg[class="close modal__closeButton"]');
     await close?.click(); //menu close button click
-    await new Promise(resolve => setTimeout(resolve, 18000));
+    await new Promise(resolve => setTimeout(resolve, 12000));
 
   }
 }

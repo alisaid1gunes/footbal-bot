@@ -170,7 +170,7 @@ export class DetailsHandler {
         try {
           await pageH2.waitForSelector(
             'a[class="tabs__tab"][href="#/odds-comparison"]',
-            { timeout: 500 }
+            { timeout: 1000 }
           );
 
           await pageH2.evaluate(() => {
@@ -183,7 +183,7 @@ export class DetailsHandler {
 
           await pageH2.waitForSelector(
             'a[class="tabs__tab"][href="#/odds-comparison/over-under"]',
-            { timeout: 500 }
+            { timeout: 1000 }
           );
 
           await pageH2.evaluate(() => {
